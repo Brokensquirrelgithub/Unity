@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
+    public Transform centerOfMass;
+    
     public WheelCollider wheelColliderLeftFront;
     public WheelCollider wheelColliderLeftBack;
     public WheelCollider wheelColliderRightFront;
@@ -16,6 +18,13 @@ public class Car : MonoBehaviour
 
     public float motorTorque = 100f;
     public float maxSteer = 20f;
+    private Rigidbody _rigidbody;
+
+    void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.centerOfMass = centerOfMass.localPosition;
+    }
 
     void FixedUpdate()
     {
@@ -24,8 +33,6 @@ public class Car : MonoBehaviour
      
         wheelColliderLeftFront.steerAngle = Input.GetAxis("Horizontal") * maxSteer;
         wheelColliderRightFront.steerAngle = Input.GetAxis("Horizontal") * maxSteer;
-
-        Debug.Log(Input.GetAxis("Horizontal"));
 
     }
 
